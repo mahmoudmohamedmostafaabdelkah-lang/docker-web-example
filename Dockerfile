@@ -1,9 +1,7 @@
 FROM python:3.11
 
-# Set environment variables to noninteractive to avoid prompts
 ENV DEBIAN_FRONTEND=noninteractive
 
-# Update system and install common tools
 RUN apt-get update && apt-get install -y \
     apt-utils \
     curl \
@@ -13,13 +11,12 @@ RUN apt-get update && apt-get install -y \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-#install python dependency
 RUN pip install flask
-# Set working directory
+
 WORKDIR /app
 
-# Copy local code to the container
 COPY . /app
 
-# Default command (can be overridden)
+EXPOSE 5000
+
 CMD ["python", "app.py"]
